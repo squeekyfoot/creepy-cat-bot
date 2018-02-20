@@ -10,7 +10,7 @@ bot.on('ready', () => {
 
 bot.on('message', async message => {
     
-    if(message.content.startsWith('#maketeams')) {
+    if(message.content.startsWith('!maketeams')) {
         let url = ""
         let body = "";
         let summonerArray = [];
@@ -24,7 +24,7 @@ bot.on('message', async message => {
         console.log('message content before replace:', message.content);
         let shortenedString = message.content.substring(10);
         console.log('message content after replace:', shortenedString);
-        summonerArray = shortenedString.split(" @");
+        summonerArray = shortenedString.split(" #");
         summonerArray.splice(0,1);
         console.log('summonerArray:', summonerArray);
         totalPlayers = summonerArray.length;
