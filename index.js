@@ -1,6 +1,11 @@
 const discord = require('discord.js');
 const https = require("https");
 const auth = require('./auth.json');
+const express = require('express');
+const app = express();
+
+var port = process.env.PORT || 5000;
+app.listen(port);
 
 var bot = new discord.Client();
 
@@ -20,7 +25,7 @@ bot.on('message', async message => {
         let summonerScores = [];
         let team1 = [];
         let team2 = [];
-
+        
         console.log('message content before replace:', message.content);
         let shortenedString = message.content.substring(10);
         console.log('message content after replace:', shortenedString);
@@ -29,30 +34,30 @@ bot.on('message', async message => {
         console.log('summonerArray:', summonerArray);
         totalPlayers = summonerArray.length;
         // summonerArray.forEach(name => {
-        //     name = name.substring(0, name.length - 1)
-        // })
-        // console.log('summonerArray after removing spaces:', summonerArray);
-        summonerIds = await getSummonerIds(summonerArray);
-        console.log(`Stored summoner ids: ${summonerIds}`);
-        summonerStats = await getAllSummonerStats(summonerIds);
-        console.log(`Stored summoner stats: ${summonerStats}`);
-        summonerScores = getScores(summonerStats);
-        console.log(`Summoner scores saved as: ${summonerScores}`);
-        summonerScores = sortPlayers(summonerScores);
-        console.log(`Players re-sorted to: ${summonerScores}`);
-        divideTeams(summonerScores, team1, team2);
-        message.reply('Here are your teams: ');
-        message.reply(`Team 1: ${beautify(team1)}`);
-        message.reply(`Team 2: ${beautify(team2)}`);
-    }
-    // summonerIds = await getSummonerId(summonerArray[0]);
-});
-
-bot.login(`${auth.token}`);
-
-var getSummonerIds = async (nameArray) => {
-    // Fetching summoner ID's for each summoner name
-    // nameArray.forEach(summonerName => {
+            //     name = name.substring(0, name.length - 1)
+            // })
+            // console.log('summonerArray after removing spaces:', summonerArray);
+            summonerIds = await getSummonerIds(summonerArray);
+            console.log(`Stored summoner ids: ${summonerIds}`);
+            summonerStats = await getAllSummonerStats(summonerIds);
+            console.log(`Stored summoner stats: ${summonerStats}`);
+            summonerScores = getScores(summonerStats);
+            console.log(`Summoner scores saved as: ${summonerScores}`);
+            summonerScores = sortPlayers(summonerScores);
+            console.log(`Players re-sorted to: ${summonerScores}`);
+            divideTeams(summonerScores, team1, team2);
+            message.reply('Here are your teams: ');
+            message.reply(`Team 1: ${beautify(team1)}`);
+            message.reply(`Team 2: ${beautify(team2)}`);
+        }
+        // summonerIds = await getSummonerId(summonerArray[0]);
+    });
+    
+    bot.login(`${auth.token}`);
+    
+    var getSummonerIds = async (nameArray) => {
+        // Fetching summoner ID's for each summoner name
+        // nameArray.forEach(summonerName => {
     //     getSummonerId(summonerName);
     // })
 
