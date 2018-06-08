@@ -20,7 +20,7 @@ bot.on('message', async message => {
     let summonerArray = []
     let summonerIds = []
     let summonerStats = []
-    let completedRequests = 0
+    // let completedRequests = 0
     let summonerScores = []
     let team1 = []
     let team2 = []
@@ -31,7 +31,7 @@ bot.on('message', async message => {
     summonerArray = shortenedString.split(' #')
     summonerArray.splice(0, 1)
     console.log('summonerArray:', summonerArray)
-    totalPlayers = summonerArray.length
+    // let totalPlayers = summonerArray.length
         // summonerArray.forEach(name => {
         //     name = name.substring(0, name.length - 1)
         // })
@@ -188,57 +188,57 @@ function getScores (statsArray) {
 // }
 
 function sortPlayers (scoresArray) {
-    let tempArray = scoresArray;
-    for (var i = 0; i < tempArray.length; i++) {
+  let tempArray = scoresArray
+  for (var i = 0; i < tempArray.length; i++) {
         // console.log(`First element: ${tempArray[i]}`);
-        for (var j = i + 1; j < tempArray.length; j++) {
+    for (var j = i + 1; j < tempArray.length; j++) {
             // console.log(`Second element: ${tempArray[j]}`);
             // console.log(`Checking ${tempArray[i][1]} against ${tempArray[j][1]}`);
-            if (tempArray[i][1] < tempArray[j][1]) {
-                var swap = tempArray[i];
-                tempArray[i] = tempArray[j];
-                tempArray[j] = swap;
-            }
-        }
+      if (tempArray[i][1] < tempArray[j][1]) {
+        var swap = tempArray[i]
+        tempArray[i] = tempArray[j]
+        tempArray[j] = swap
+      }
     }
-    return tempArray;
+  }
+  return tempArray
     // console.log(scoresArray);
     // divideTeams(scoresArray);
 }
 
 function divideTeams (finalArray, team1, team2) {
-    let theStraggler;
-    if (finalArray.length % 2 !== 0) {
-        let index = finalArray.length - 1
-        theStraggler = finalArray[index];
+  let theStraggler
+  if (finalArray.length % 2 !== 0) {
+    let index = finalArray.length - 1
+    theStraggler = finalArray[index]
         // console.log(`The straggler is ${theStraggler}!`);
-        finalArray.splice(index, 1)
+    finalArray.splice(index, 1)
         // console.log(`Removed from array:`, finalArray);
+  }
+  for (var i = 0; i < finalArray.length; i++) {
+    if (i % 2 === 0) {
+      team1.push(finalArray[i][0])
+    } else {
+      team2.push(finalArray[i][0])
     }
-    for (var i = 0; i < finalArray.length; i++) {
-        if (i % 2 == 0) {
-            team1.push(finalArray[i][0]);
-        } else {
-            team2.push(finalArray[i][0]);
-        }
-    }
-    if (theStraggler) team2.push(theStraggler[0]);
-    console.log(`Team 1:`, team1);
-    console.log(`Team 2:`, team2);
+  }
+  if (theStraggler) team2.push(theStraggler[0])
+  console.log(`Team 1:`, team1)
+  console.log(`Team 2:`, team2)
 }
 
 function beautify (array) {
-    let tempArray = array;
-    for (var i = 0; i < tempArray.length; i++) {
-        let tempElement = tempArray[i].split(' ');
-        console.log(`Temp element: ${tempElement}`)
-        for (var ii = 0; ii < tempElement.length; ii++) {
-            console.log(tempElement[ii])
-            tempElement[ii] = tempElement[ii][0].toUpperCase() + tempElement[ii].substr(1)
-            console.log(tempElement[ii])
-        };
-        tempArray[i] = tempElement.join(' ');
-    }
-    let message = tempArray.join(", ");
-    return message;
+  let tempArray = array
+  for (var i = 0; i < tempArray.length; i++) {
+    let tempElement = tempArray[i].split(' ')
+    console.log(`Temp element: ${tempElement}`)
+    for (var ii = 0; ii < tempElement.length; ii++) {
+      console.log(tempElement[ii])
+      tempElement[ii] = tempElement[ii][0].toUpperCase() + tempElement[ii].substr(1)
+      console.log(tempElement[ii])
+    };
+    tempArray[i] = tempElement.join(' ')
+  }
+  let message = tempArray.join(', ')
+  return message
 }
