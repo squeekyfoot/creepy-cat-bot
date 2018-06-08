@@ -1,15 +1,26 @@
 const discord = require('discord.js')
+const commando = require('discord.js-commando')
 const https = require('https')
 const auth = require('./auth.json')
 const express = require('express')
 const app = express()
+const path = require('path')
 
 var port = process.env.PORT || 5000
 app.listen(port)
 
-var bot = new discord.Client()
+var bot = new commando.Client()
 let url = ''
 let body = ''
+
+bot.registry
+    .registerDefaultTypes()
+    .registerGroups([
+        ['sorting', 'Sorting commands']
+    ])
+    .registerDefaultGroups()
+    .registerDefaultCommands()
+    .registerCommandsIn(path.join(__dirname, 'commands'));
 
 bot.on('ready', () => {
   console.log('I am ready!')

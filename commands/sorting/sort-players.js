@@ -5,7 +5,7 @@ module.exports = class SortPlayersCommand extends commando.Command {
         super(client, {
             name: 'sort-players',
             aliases: ['sort', 'sort-players', 'sort-p', 'sp'],
-            group: 'sort',
+            group: 'sorting',
             memberName: 'sort-players',
             description: 'Sort players into even teams by providing League summoner names',
             args: [
